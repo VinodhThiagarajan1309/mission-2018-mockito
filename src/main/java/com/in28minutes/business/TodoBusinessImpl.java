@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.in28minutes.data.api.TodoService;
+import com.in28minutes.data.api.TodoServiceImpl;
 
 public class TodoBusinessImpl {
 	private TodoService todoService;
@@ -21,5 +22,14 @@ public class TodoBusinessImpl {
 			}
 		}
 		return filteredTodos;
+	}
+
+	public void deleteTodosNotRelatedToSpring(String user) {
+		List<String> allTodos = todoService.retrieveTodos(user);
+		for (String todo : allTodos) {
+			if (!todo.contains("Spring")) {
+				todoService.deleteTodos(todo);
+			}
+		}
 	}
 }
